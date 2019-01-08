@@ -6,6 +6,8 @@ import { compose } from 'recompose'
 
 import makeStore from '../store'
 
+import 'bootstrap/scss/bootstrap.scss'
+
 class MyApp extends App {
   static async getInitialProps({ Component, router, ctx }) {
     let pageProps = {}
