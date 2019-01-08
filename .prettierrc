@@ -1,0 +1,14 @@
+{
+  "semi": false,
+  "singleQuote": true,
+  "printWidth": 90,
+  "jsxBracketSameLine": true,
+  "overrides": [
+    {
+      "files": "_document.js",
+      "options": {
+        "printWidth": 150
+      }
+    }
+  ]
+}
