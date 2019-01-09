@@ -33,8 +33,7 @@
     "react-redux": "^6.0.0",
     "reactstrap": "^7.0.2",
     "recompose": "^0.30.0",
-    "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux": "^4.0.1"
   },
   "devDependencies": {
     "redux-devtools-extension": "^2.13.7"

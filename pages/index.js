@@ -24,7 +24,7 @@ class Index extends PureComponent {
 export default Index
 
 const query = gql`
-  query {
+  {
     feed(mode: v5_popular) {
       count
       data {
@@ -39,6 +39,13 @@ const query = gql`
                     name
                     src
                   }
+                }
+              }
+            }
+            blocks(mode: v4_featured) {
+              data {
+                ... on BlockParagraph {
+                  content
                 }
               }
             }

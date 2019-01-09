@@ -1,4 +1,3 @@
-import thunk from 'redux-thunk'
 import getConfig from 'next/config'
 import { createStore, applyMiddleware } from 'redux'
 
@@ -16,7 +15,7 @@ const bindMiddleware = middleware => {
 }
 
 export default (initialState = {}) => {
-  const middlewares = [thunk]
+  const middlewares = []
   const store = createStore(rootReducer, initialState, bindMiddleware(middlewares))
 
   return store
