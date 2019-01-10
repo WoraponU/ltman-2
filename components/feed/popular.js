@@ -1,7 +1,32 @@
 import React from 'react'
 import { Container, Row, Col } from 'reactstrap'
 
-import '../../../styles/components/feed/popular/index.scss'
+import '../../styles/components/feed/popular.scss'
+
+export default ({ data, loading }) => {
+  return (
+    <Container className="popular-feed">
+      <Row>
+        <Col sm="12" className="text-center pt-3 text-muted">
+          <span className="lead">POPULAR</span>
+        </Col>
+      </Row>
+      <Row>
+        <Col lg={{ size: 6, offset: 3 }}>
+          {data.map(blockData => (
+            <Block key={blockData.article.id} blockData={blockData} />
+          ))}
+        </Col>
+
+        {loading ? (
+          <Col className="text-center" lg={{ size: 6, offset: 3 }}>
+            loading...
+          </Col>
+        ) : null}
+      </Row>
+    </Container>
+  )
+}
 
 const Block = ({
   blockData: {
@@ -43,7 +68,7 @@ const Block = ({
                 <img
                   key={index}
                   src={dataContent.photo.sizes[0].src}
-                  className=" img-fluid"
+                  className="img-fluid"
                 />
               ))}
           </Col>
@@ -52,24 +77,3 @@ const Block = ({
     </Row>
   )
 }
-
-const Popular = ({ data }) => {
-  return (
-    <Container className="popular-feed">
-      <Row>
-        <Col sm="12" className="text-center pt-3 text-muted">
-          <span className="lead">POPULAR</span>
-        </Col>
-      </Row>
-      <Row>
-        <Col lg={{ size: 6, offset: 3 }}>
-          {data.map(blockData => (
-            <Block key={blockData.article.id} blockData={blockData} />
-          ))}
-        </Col>
-      </Row>
-    </Container>
-  )
-}
-
-export default Popular
