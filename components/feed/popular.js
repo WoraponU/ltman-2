@@ -1,7 +1,10 @@
 import React from 'react'
 import { Container, Row, Col } from 'reactstrap'
+import moment from 'moment-timezone'
 
 import '../../styles/components/feed/popular.scss'
+
+moment.locale('th')
 
 export default ({ data, loading }) => {
   return (
@@ -45,7 +48,15 @@ const Block = ({
             <img src={page.profile.photo.sizes[0].src} className="photo" />
             <div className="ml-2 flex-grow-1">
               <div>{page.profile.name}</div>
-              <div className="text-muted small">{published_time}</div>
+              <div className="text-muted small">
+                {moment().isSame(published_time, 'day')
+                  ? moment(published_time)
+                      .tz('Asia/Bangkok')
+                      .fromNow()
+                  : moment(published_time)
+                      .tz('Asia/Bangkok')
+                      .format('D MMMM เวลา HH:mm น.')}
+              </div>
             </div>
           </Col>
         </Row>
