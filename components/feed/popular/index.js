@@ -28,8 +28,10 @@ const Block = ({
           <Col className="mt-2">
             {contents
               .filter(dataContent => dataContent.content)
-              .map(dataContent => (
-                <div className="block-paragraph-wrapper">{dataContent.content}</div>
+              .map((dataContent, index) => (
+                <div key={index} className="block-paragraph-wrapper">
+                  {dataContent.content}
+                </div>
               ))}
           </Col>
         </Row>
@@ -37,8 +39,12 @@ const Block = ({
           <Col className="block-img">
             {contents
               .filter(dataContent => dataContent.photo)
-              .map(dataContent => (
-                <img src={dataContent.photo.sizes[0].src} className=" img-fluid" />
+              .map((dataContent, index) => (
+                <img
+                  key={index}
+                  src={dataContent.photo.sizes[0].src}
+                  className=" img-fluid"
+                />
               ))}
           </Col>
         </Row>

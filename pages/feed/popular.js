@@ -5,29 +5,49 @@ import gql from 'graphql-tag'
 import { Layout } from '../../components/commons'
 import Popular from '../../components/feed/popular'
 
-class Index extends PureComponent {
+class PopularFeed extends PureComponent {
+  state = {
+    feedLimit: 1,
+    popularFeed: []
+  }
+
+  a = () => {
+    this.setState({
+      feedLimit: this.state.feedLimit + 1
+    })
+  }
+
   render() {
+    const { feedLimit, popularFeed } = this.state
+
     return (
       <Layout>
-        <Query query={query}>
+        <Query query={query} variables={{ limit: feedLimit }}>
           {({ loading, error, data }) => {
-            if (loading) return 'Loading...'
+            if (loading) return 'eeiei'
             if (error) return `Error! ${error.message}`
-            return <Popular data={data.feed.data} />
+
+            this.setState({
+              popularFeed: data.feed.data
+            })
+
+            return null
           }}
         </Query>
+        <Popular data={popularFeed} />
+        <button onClick={this.a}>apollo</button>
       </Layout>
     )
   }
 }
 
-export default Index
+export default PopularFeed
 
 const query = gql`
-  {
+  query Feeds($limit: Int!) {
     feed(mode: v5_popular) {
       count
-      data {
+      data(limit: $limit) {
         ... on FeedItemArticle {
           article {
             id
@@ -52,7 +72,6 @@ const query = gql`
                 ... on BlockPhoto {
                   photo {
                     sizes(size: article_thumb) {
-                      name
                       src
                     }
                   }
