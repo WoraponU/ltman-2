@@ -3,37 +3,43 @@ import { Container, Row, Col } from 'reactstrap'
 
 import '../../../styles/components/feed/popular/index.scss'
 
-const Block = () => {
+const Block = ({
+  blockData: {
+    article: {
+      page,
+      published_time,
+      blocks: { data: contents }
+    }
+  }
+}) => {
   return (
     <Row className="mt-3 pt-3 border rounded feed-item">
       <Col>
         <Row>
           <Col className="profile d-flex flex-row align-items-center">
-            <img
-              src="https://t0.blockdit.com/photos/2018/09/5ba4a3f599599c0b2f75ae19_profile_thumb.jpg"
-              className="photo"
-            />
+            <img src={page.profile.photo.sizes[0].src} className="photo" />
             <div className="ml-2 flex-grow-1">
-              <div>ลงทุนแมน</div>
-              <div className="text-muted small">9 มกราคม เวลา 16:20 น.</div>
+              <div>{page.profile.name}</div>
+              <div className="text-muted small">{published_time}</div>
             </div>
           </Col>
         </Row>
         <Row>
           <Col className="mt-2">
-            <div className="block-paragraph-wrapper">
-              วิกฤติ มหาวิทยาลัยไทย / โดย ลงทุนแมน
-            </div>
-            <div className="block-paragraph-wrapper">
-              “3 ใน 4 ของมหาวิทยาลัยของไทยในปัจจุบันอาจต้องปิดตัวลง ในช่วง 10 ปีข้างหน้า”
-            </div>
-            <div className="block-paragraph-wrapper">
-              ในช่วง 2 - 3 ปีที่ผ่านมา
-              มหาวิทยาลัยของไทยบางแห่งต้องมีการปรับหลักสูตรการเรียนการสอน
-              บางสาขาวิชาต้องถูกปิดเพราะคนมาเรียนน้อย
-              มหาวิทยาลัยเอกชนบางแห่งต้องขายกิจการให้ผู้ร่วมทุนต่างชาติ
-              บางกรณีถึงขนาดมีการเลิกจ้างอาจารย์ในมหาวิทยาลัย.
-            </div>
+            {contents
+              .filter(dataContent => dataContent.content)
+              .map(dataContent => (
+                <div className="block-paragraph-wrapper">{dataContent.content}</div>
+              ))}
+          </Col>
+        </Row>
+        <Row className="mt-1">
+          <Col className="block-img">
+            {contents
+              .filter(dataContent => dataContent.photo)
+              .map(dataContent => (
+                <img src={dataContent.photo.sizes[0].src} className=" img-fluid" />
+              ))}
           </Col>
         </Row>
       </Col>
@@ -51,8 +57,9 @@ const Popular = ({ data }) => {
       </Row>
       <Row>
         <Col lg={{ size: 6, offset: 3 }}>
-          <Block />
-          <Block />
+          {data.map(blockData => (
+            <Block key={blockData.article.id} blockData={blockData} />
+          ))}
         </Col>
       </Row>
     </Container>

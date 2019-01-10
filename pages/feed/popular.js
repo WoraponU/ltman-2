@@ -13,7 +13,7 @@ class Index extends PureComponent {
           {({ loading, error, data }) => {
             if (loading) return 'Loading...'
             if (error) return `Error! ${error.message}`
-            return <Popular data={data} />
+            return <Popular data={data.feed.data} />
           }}
         </Query>
       </Layout>
@@ -30,11 +30,32 @@ const query = gql`
       data {
         ... on FeedItemArticle {
           article {
+            id
+            published_time
+            page {
+              profile {
+                name
+                photo {
+                  sizes(size: profile_thumb) {
+                    name
+                    src
+                  }
+                }
+              }
+            }
             blocks(mode: v4_featured) {
               count
               data {
                 ... on BlockParagraph {
                   content
+                }
+                ... on BlockPhoto {
+                  photo {
+                    sizes(size: article_thumb) {
+                      name
+                      src
+                    }
+                  }
                 }
               }
             }
