@@ -1,20 +1,26 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
+import Waypoint from 'react-waypoint'
 
 import { Layout } from '../../components/commons'
 import Popular from '../../components/feed/popular'
 
-class PopularFeed extends PureComponent {
+class PopularFeed extends Component {
   state = {
     feedLimit: 1,
     popularFeed: []
   }
 
-  a = () => {
+  loadMore = () => {
+    console.log(this.state.feedLimit)
     this.setState({
       feedLimit: this.state.feedLimit + 1
     })
+  }
+
+  loadMorea = () => {
+    console.log('leave')
   }
 
   render() {
@@ -24,9 +30,10 @@ class PopularFeed extends PureComponent {
       <Layout>
         <Query query={query} variables={{ limit: feedLimit }}>
           {({ loading, error, data }) => {
-            if (loading) return 'eeiei'
+            if (loading) return null
             if (error) return `Error! ${error.message}`
 
+            console.log('eieiei')
             this.setState({
               popularFeed: data.feed.data
             })
@@ -35,7 +42,7 @@ class PopularFeed extends PureComponent {
           }}
         </Query>
         <Popular data={popularFeed} />
-        <button onClick={this.a}>apollo</button>
+        {/* <Waypoint onEnter={this.loadMore} onLeave={this.loadMorea} /> */}
       </Layout>
     )
   }
