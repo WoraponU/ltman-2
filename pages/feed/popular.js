@@ -52,6 +52,7 @@ const query = gql`
           article {
             id
             published_time
+            updated_time
             page {
               profile {
                 name
