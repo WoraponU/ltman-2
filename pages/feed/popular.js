@@ -8,41 +8,34 @@ import Popular from '../../components/feed/popular'
 
 class PopularFeed extends Component {
   state = {
-    feedLimit: 1,
-    popularFeed: []
+    feedLimit: 5
   }
 
-  loadMore = () => {
-    console.log(this.state.feedLimit)
+  onLoadMore = () => {
     this.setState({
-      feedLimit: this.state.feedLimit + 1
+      feedLimit: this.state.feedLimit + 5
     })
   }
 
-  loadMorea = () => {
-    console.log('leave')
-  }
-
   render() {
-    const { feedLimit, popularFeed } = this.state
+    const { feedLimit } = this.state
 
     return (
       <Layout>
         <Query query={query} variables={{ limit: feedLimit }}>
           {({ loading, error, data }) => {
-            if (loading) return null
             if (error) return `Error! ${error.message}`
 
-            console.log('eieiei')
-            this.setState({
-              popularFeed: data.feed.data
-            })
-
-            return null
+            return (
+              <Popular
+                onLoadMore={this.onLoadMore}
+                loading={loading}
+                data={data.feed.data}
+              />
+            )
           }}
         </Query>
-        <Popular data={popularFeed} />
-        {/* <Waypoint onEnter={this.loadMore} onLeave={this.loadMorea} /> */}
+        <Waypoint onEnter={this.onLoadMore} />
       </Layout>
     )
   }

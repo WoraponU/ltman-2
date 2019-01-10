@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Row, Col } from 'reactstrap'
 
-import '../../../styles/components/feed/popular/index.scss'
+import '../../styles/components/feed/popular.scss'
 
 const Block = ({
   blockData: {
@@ -43,7 +43,7 @@ const Block = ({
                 <img
                   key={index}
                   src={dataContent.photo.sizes[0].src}
-                  className=" img-fluid"
+                  className="img-fluid"
                 />
               ))}
           </Col>
@@ -53,7 +53,7 @@ const Block = ({
   )
 }
 
-const Popular = ({ data }) => {
+const Popular = ({ data, loading }) => {
   return (
     <Container className="popular-feed">
       <Row>
@@ -67,6 +67,12 @@ const Popular = ({ data }) => {
             <Block key={blockData.article.id} blockData={blockData} />
           ))}
         </Col>
+
+        {loading ? (
+          <Col className="text-center" lg={{ size: 6, offset: 3 }}>
+            loading...
+          </Col>
+        ) : null}
       </Row>
     </Container>
   )
