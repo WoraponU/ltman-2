@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import Waypoint from 'react-waypoint'
@@ -6,7 +6,7 @@ import Waypoint from 'react-waypoint'
 import { Layout } from '../../components/commons'
 import { PopularFeed } from '../../components/feed'
 
-class PopularFeedPage extends Component {
+class PopularFeedPage extends PureComponent {
   state = {
     feedLimit: 5
   }

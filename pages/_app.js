@@ -1,12 +1,9 @@
 import React from 'react'
-import withRedux from 'next-redux-wrapper'
 import App, { Container } from 'next/app'
-import { Provider } from 'react-redux'
 import { compose } from 'recompose'
 import { ApolloProvider } from 'react-apollo'
 
 import { withApolloClient } from '../libs/apollo'
-import makeStore from '../store'
 
 import 'bootstrap/scss/bootstrap.scss'
 import '../styles/commons/app.scss'
@@ -23,23 +20,18 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps, store, apolloClient } = this.props
+    const { Component, pageProps, apolloClient } = this.props
 
     return (
       <Container>
         <ApolloProvider client={apolloClient}>
-          <Provider store={store}>
-            <Component {...pageProps} />
-          </Provider>
+          <Component {...pageProps} />
         </ApolloProvider>
       </Container>
     )
   }
 }
 
-const enhance = compose(
-  withApolloClient,
-  withRedux(makeStore)
-)
+const enhance = compose(withApolloClient)
 
 export default enhance(MyApp)
