@@ -1,22 +1,22 @@
 import React, { PureComponent } from 'react'
-import { Button } from 'reactstrap'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
+
+import { Layout } from '../../components/commons'
+import Popular from '../../components/feed/popular'
 
 class Index extends PureComponent {
   render() {
     return (
-      <div>
-        <Button color="danger">Danger!</Button>
+      <Layout>
         <Query query={query}>
           {({ loading, error, data }) => {
             if (loading) return 'Loading...'
             if (error) return `Error! ${error.message}`
-            console.log(data)
-            return <div>eiei</div>
+            return <Popular data={data} />
           }}
         </Query>
-      </div>
+      </Layout>
     )
   }
 }
@@ -30,19 +30,8 @@ const query = gql`
       data {
         ... on FeedItemArticle {
           article {
-            id
-            page {
-              profile {
-                name
-                photo {
-                  sizes(size: profile_thumb) {
-                    name
-                    src
-                  }
-                }
-              }
-            }
             blocks(mode: v4_featured) {
+              count
               data {
                 ... on BlockParagraph {
                   content

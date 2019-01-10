@@ -1,0 +1,24 @@
+@import '../../../commons/color.scss';
+
+.popular-feed {
+  .feed-item {
+    background-color: $feedBackground;
+
+    .profile {
+      .photo {
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+      }
+    }
+
+    .block-paragraph-wrapper {
+      margin-top: 2px;
+      width: fit-content;
+      background-color: rgb(242, 242, 242);
+      line-height: 1.4em;
+      border-radius: 1.2em;
+      padding: 0.8em;
+    }
+  }
+}

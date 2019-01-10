@@ -9,6 +9,7 @@ import { withApolloClient } from '../libs/apollo'
 import makeStore from '../store'
 
 import 'bootstrap/scss/bootstrap.scss'
+import '../styles/commons/app.scss'
 
 class MyApp extends App {
   static async getInitialProps({ Component, router, ctx }) {
@@ -23,6 +24,7 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps, store, apolloClient } = this.props
+
     return (
       <Container>
         <ApolloProvider client={apolloClient}>

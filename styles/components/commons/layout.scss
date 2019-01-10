@@ -1,0 +1,10 @@
+@import '../../commons/color.scss';
+
+.header {
+  background-color: $headBackground;
+
+  img {
+    height: 16px;
+    margin: 12px 0px;
+  }
+}
