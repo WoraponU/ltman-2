@@ -43,45 +43,60 @@ class PopularFeedPage extends PureComponent {
 
 export default PopularFeedPage
 
+PopularFeedPage.fragments = {
+  feedItemArticle: gql`
+    fragment FeedItemArticleFragment on FeedItemArticle {
+      article {
+        id
+        published_time
+        updated_time
+        page {
+          profile {
+            name
+            photo {
+              sizes(size: profile_thumb) {
+                name
+                src
+              }
+            }
+          }
+        }
+        blocks(mode: v4_featured) {
+          count
+          data {
+            ... BlockParagraphFragment
+            ... BlockPhotoFragment
+          }
+        }
+      }
+    }
+  `,
+  BlockParagraph: gql`
+    fragment BlockParagraphFragment on BlockParagraph {
+      content
+    }
+  `,
+  BlockPhoto: gql`
+    fragment BlockPhotoFragment on BlockPhoto {
+      photo {
+        sizes(size: article_thumb) {
+          src
+        }
+      }
+    }
+  `,
+};
+
 const query = gql`
   query Feeds($limit: Int!) {
     feed(mode: v5_popular) {
       count
       data(limit: $limit) {
-        ... on FeedItemArticle {
-          article {
-            id
-            published_time
-            updated_time
-            page {
-              profile {
-                name
-                photo {
-                  sizes(size: profile_thumb) {
-                    name
-                    src
-                  }
-                }
-              }
-            }
-            blocks(mode: v4_featured) {
-              count
-              data {
-                ... on BlockParagraph {
-                  content
-                }
-                ... on BlockPhoto {
-                  photo {
-                    sizes(size: article_thumb) {
-                      src
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
+        ... FeedItemArticleFragment
       }
     }
   }
+  ${PopularFeedPage.fragments.feedItemArticle}
+  ${PopularFeedPage.fragments.BlockParagraph}
+  ${PopularFeedPage.fragments.BlockPhoto}
 `
