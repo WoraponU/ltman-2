@@ -16,6 +16,7 @@
   "license": "ISC",
   "homepage": "https://github.org/woraponPrathuangthip/ltman-2#readme",
   "dependencies": {
+    "@intervolga/optimize-cssnano-plugin": "^1.0.6",
     "@zeit/next-sass": "^1.0.1",
     "apollo-boost": "^0.1.23",
     "bootstrap": "^4.2.1",
