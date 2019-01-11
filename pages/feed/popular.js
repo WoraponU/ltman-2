@@ -49,13 +49,11 @@ PopularFeedPage.fragments = {
       article {
         id
         published_time
-        updated_time
         page {
           profile {
             name
             photo {
               sizes(size: profile_thumb) {
-                name
                 src
               }
             }
